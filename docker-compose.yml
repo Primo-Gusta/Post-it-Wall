@@ -3,15 +3,31 @@ version: '3.8'
 services:
   db:
     image: postgres:15
-    container_name: mural_db_local
+    container_name: postit_db_local
     environment:
-      POSTGRES_USER: user
+      POSTGRES_USER: postit_admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postit_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data_local:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postit_admin -d postit_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+      build: .
+      container_name: postit_backend
+      ports:
+        - "8080:8080"
+      depends_on:
+        db:
+          condition: service_healthy
+      environment:
+        DATABASE_URL: postgresql+psycopg://postit_admin:password@db:5432/postit_db
 
 volumes:
   postgres_data_local:

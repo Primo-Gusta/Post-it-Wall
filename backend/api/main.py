@@ -1,12 +1,20 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 from . import models, database
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=database.engine)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+models.Base.metadata.create_all(bind=database.engine)
 
 @app.get("/postits")
 def get_all_postits(db: Session = Depends(database.get_db)):

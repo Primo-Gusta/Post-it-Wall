@@ -59,5 +59,5 @@ npm start
 
 ### 02/10/2026
 
-* **Added Forms**: Now you can put postits directly into the site.
+* **Added Forms**: Now you can put post-its directly into the site.
 * **Made delete possible**: In addition to the forms, you can also delete the postits, so all current endpoints are implemented on React

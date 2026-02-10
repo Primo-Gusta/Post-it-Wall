@@ -56,3 +56,8 @@ npm start
 
 * **Added Docker**: Added dockerfile and configured Docker to work on the backend
 * **Added React Frontend**: Added the base for the Frontend using react.
+
+### 02/10/2026
+
+* **Added Forms**: Now you can put postits directly into the site.
+* **Made delete possible**: In addition to the forms, you can also delete the postits, so all current endpoints are implemented on React

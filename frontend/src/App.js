@@ -65,7 +65,7 @@ function App() {
       <select value={color} onChange={(e) => setColor(e.target.value)}>
         <option value="yellow">Yellow</option>
         <option value="red">Red</option>
-        <option value="blue">Blue</option>
+        <option value="lightblue">Blue</option>
         <option value="pink">Pink</option>
       </select>
       <button type="submit">Add Post-it</button>

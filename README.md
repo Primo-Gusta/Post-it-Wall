@@ -12,7 +12,7 @@ An interactive system to capture and organize ideas through a visual interface o
 ---
 
 ## 🛠️ Getting Started
-Currently, the database runs via Docker, while the API runs locally to streamline development and debugging.
+Currently, the API and the Backend runs on Docker, but is able to run locally. The frontend runs only locally at the moment.
 
 ### 1. Start the Database
 Make sure you have Docker Desktop running, then execute:

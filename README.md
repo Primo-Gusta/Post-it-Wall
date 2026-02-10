@@ -1,6 +1,6 @@
 # 📌 Post-it Wall (Idea Mural)
 
-An interactive system to capture and organize ideas through a visual interface of "sticky notes." This project is being built to master and apply modern backend concepts using **FastAPI**, **PostgreSQL**, and **Docker**.
+An interactive system to capture and organize ideas through a visual interface of "sticky notes." This project is being built using **FastAPI**, **PostgreSQL**, **Docker** and **React**.
 
 ## 🚀 Technologies
 * **Back-end:** Python 3.11 + FastAPI.

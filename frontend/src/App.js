@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import './App.css';
+import PostitCard from './PostitCard';
 
 function App() {
-
-  const[postits, setPostits] = useState([]);
+  const [postits, setPostits] = useState([]);
   const [content, setContent] = useState('');
   const [color, setColor] = useState('yellow');
 
@@ -16,72 +16,74 @@ function App() {
     try {
       const response = await axios.get('http://localhost:8080/postits');
       setPostits(response.data);
-    } catch (error){
-      console.error("Error on getting postits: ", error);
+    } catch (error) {
+      console.error("Erro ao buscar:", error);
     }
   };
 
   const addPostit = async (e) => {
     e.preventDefault();
-    if(!content) return;
-
-    try{
+    if (!content) return;
+    try {
       await axios.post('http://localhost:8080/postits', null, {
-        params: {
-          content: content,
-          x: 100,
-          y: 100,
-          color: color,
-        }
+        params: { content, x: 100, y: 100, color }
       });
       setContent('');
       fetchPostits();
-    } catch (error){
-      console.error("Error on adding postit:", error);
+    } catch (error) {
+      console.error("Erro ao adicionar:", error);
     }
   };
 
-  const deletePostit = async(id) => {
-    try{
-      await axios.delete('http://localhost:8080/postits/' + id);
+  const deletePostit = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/postits/${id}`);
       fetchPostits();
-    } catch (error){
-      console.error("Failed to Delete:", error)
+    } catch (error) {
+      console.error("Erro ao deletar:", error);
     }
+  };
+
+  const editPostit = async (id, updatedData) => {
+  if (!id) return;
+  try {
+    await axios.put(`http://localhost:8080/edit-postit/${id}`, null, {
+      params: {
+        content: updatedData.content,
+        x: updatedData.x,
+        y: updatedData.y,
+        color: updatedData.color,
+      }
+    });
+    fetchPostits();
+  } catch (error) {
+    console.error("Erro detalhado:", error.response);
   }
+};
 
   return (
     <div className="App">
       <h1>Post-its</h1>
-
-    {/* Create a post-it */}
-    <form onSubmit={addPostit} className="postit-form">
-      <input
-        type="text"
-        placeholder='Write your idea'
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+      <form onSubmit={addPostit} className="postit-form">
+        <input
+          type="text"
+          placeholder="Escreva sua ideia"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-      <select value={color} onChange={(e) => setColor(e.target.value)}>
-        <option value="yellow">Yellow</option>
-        <option value="red">Red</option>
-        <option value="lightblue">Blue</option>
-        <option value="pink">Pink</option>
-      </select>
-      <button type="submit">Add Post-it</button>
-    </form>
+        <select value={color} onChange={(e) => setColor(e.target.value)}>
+          <option value="yellow">Amarelo</option>
+          <option value="red">Vermelho</option>
+          <option value="lightblue">Azul</option>
+          <option value="pink">Rosa</option>
+        </select>
+        <button type="submit">Adicionar</button>
+      </form>
 
       <div className="mural">
-      {postits.lenght === 0 ? (
-        <p>No post-its found</p>
-      ): (
-        postits.map((p) => (
-          <div key={p.id} className="postit-card" style={{backgroundColor: p.color}}>
-            <button className="delete-btn" onClick={() => deletePostit(p.id)}>x</button>
-            <p>{p.content}</p>
-                  </div>
-        ))
-      )}
+        {postits.map((p) => (
+          <PostitCard key={p.id} postit={p} onDelete={deletePostit} onUpdate={editPostit} />
+        ))}
       </div>
     </div>
   );

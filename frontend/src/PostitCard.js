@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Draggable from 'react-draggable';
 
 const PostitCard = ({ postit, onDelete, onUpdate }) => {
+  const nodeRef = useRef(null);
   const [localContent, setLocalContent] = useState(postit.content);
   useEffect(() => {
     setLocalContent(postit.content);
@@ -17,11 +19,16 @@ const PostitCard = ({ postit, onDelete, onUpdate }) => {
   const handleColorChange = (newColor) => {
     onUpdate(postit.id, { ...postit, color: newColor });
   };
-
   return (
-    <div className="postit-card" style={{ backgroundColor: postit.color }}>
+    <Draggable
+    nodeRef={nodeRef}
+    defaultPosition ={{ x: postit.x, y: postit.y}}
+    onStop={(e, data) => 
+      onUpdate(postit.id, {...postit, x: data.x, y: data.y})
+      }
+      >
+      <div ref={nodeRef} className="postit-card" style={{ backgroundColor: postit.color }}>
       <button className="delete-btn" onClick={() => onDelete(postit.id)}>x</button>
-      
       <textarea
         className="postit-input"
         value={localContent}
@@ -39,6 +46,7 @@ const PostitCard = ({ postit, onDelete, onUpdate }) => {
         ))}
       </div>
     </div>
+    </Draggable>
   );
 };
 

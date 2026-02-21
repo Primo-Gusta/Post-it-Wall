@@ -6,15 +6,14 @@
 }
 
 .mural {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  position: relative;
+  width: 100%;
+  height: 80vh;
   margin-top: 30px;
 }
 
 .postit-card {
-  position: relative;
+  position: absolute;
   width: 200px;
   height: 200px;
   padding: 25px 15px 15px 15px;

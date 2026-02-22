@@ -21,12 +21,12 @@ function App() {
     }
   };
 
-  const addPostit = async (e) => {
-    e.preventDefault();
-    if (!content) return;
+  const addPostit = async () => {
     try {
+    const centerX = window.innerWidth / 2 - 100;
+    const centerY = window.innerHeight / 2 - 100;
       await axios.post('http://localhost:8080/postits', null, {
-        params: { content, x: 100, y: 100, color }
+        params: { content: '', x: centerX, y: centerY, color: 'yellow' }
       });
       setContent('');
       fetchPostits();
@@ -63,28 +63,23 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Post-its</h1>
-      <form onSubmit={addPostit} className="postit-form">
-        <input
-          type="text"
-          placeholder="Escreva sua ideia"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <select value={color} onChange={(e) => setColor(e.target.value)}>
-          <option value="yellow">Amarelo</option>
-          <option value="red">Vermelho</option>
-          <option value="lightblue">Azul</option>
-          <option value="pink">Rosa</option>
-        </select>
-        <button type="submit">Adicionar</button>
-      </form>
+    <header className="app-header">
+      <button className="add-button-top" onClick={addPostit}>
+        + Add Post-it
+      </button>
+      <h1 className="app-title">Mural Interativo</h1>
+    </header>
 
-      <div className="mural">
-        {postits.map((p) => (
-          <PostitCard key={p.id} postit={p} onDelete={deletePostit} onUpdate={editPostit} />
-        ))}
-      </div>
+    <div className="mural">
+      {postits.map((p) => (
+        <PostitCard 
+          key={p.id} 
+          postit={p} 
+          onDelete={deletePostit} 
+          onUpdate={editPostit} 
+        />
+      ))}
+    </div>
     </div>
   );
 }

@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 
 const PostitCard = ({ postit, onDelete, onUpdate }) => {
+  const textareaRef = useRef(null);
+  useEffect(() => {
+    if(postit.content === '') {
+      textareaRef.current.focus();
+    }
+  }, []);
   const nodeRef = useRef(null);
   const [localContent, setLocalContent] = useState(postit.content);
   useEffect(() => {
@@ -30,6 +36,7 @@ const PostitCard = ({ postit, onDelete, onUpdate }) => {
       <div ref={nodeRef} className="postit-card" style={{ backgroundColor: postit.color }}>
       <button className="delete-btn" onClick={() => onDelete(postit.id)}>x</button>
       <textarea
+        ref={textareaRef}
         className="postit-input"
         value={localContent}
         onChange={(e) => setLocalContent(e.target.value)}

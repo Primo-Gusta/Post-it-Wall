@@ -17,8 +17,8 @@ app.add_middleware(
 def update_postit(
     postit_id: int,    
     content: str = Query(...), 
-    x: int = Query(...), 
-    y: int = Query(...), 
+    x: float = Query(...), 
+    y: float = Query(...), 
     color: str = Query("yellow"), 
     db: Session = Depends(database.get_db)
 ):
@@ -50,7 +50,7 @@ def get_all_postits(db: Session = Depends(database.get_db)):
 
 @app.post("/postits")
 def create_postit(
-    content: str, x: int, y: int, color: str = "yellow", 
+    content: str, x: float, y: float, color: str = "yellow", 
     db: Session = Depends(database.get_db)):
     postit = models.PostItModel(content=content, x=x, y=y, color=color)
     db.add(postit)

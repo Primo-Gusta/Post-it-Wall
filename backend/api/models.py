@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Float, String, Integer
 from .database import Base
 
 class PostItModel(Base):
@@ -7,5 +7,5 @@ class PostItModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     content = Column(String, nullable=False)
     color = Column(String, default="yellow")
-    x = Column(Integer, default=100)
-    y = Column(Integer, default=100)
+    x = Column(Float, default=0.0)
+    y = Column(Float, default=0.0)

@@ -26,7 +26,7 @@ function App() {
     const centerX = window.innerWidth / 2 - 100;
     const centerY = window.innerHeight / 2 - 100;
       await axios.post('http://localhost:8080/postits', null, {
-        params: { content: '', x: centerX, y: centerY, color: 'yellow' }
+        params: { content: '', x: centerX, y: centerY, color: '#ffcce5' }
       });
       setContent('');
       fetchPostits();
@@ -63,12 +63,12 @@ function App() {
 
   return (
     <div className="App">
-    <header className="app-header">
-      <button className="add-button-top" onClick={addPostit}>
+    <div className="three-slashs" onClick={() => {}}>
+      ☰
+    </div>
+      <button className="fab-add" onClick={addPostit}>
         + Add Post-it
       </button>
-      <h1 className="app-title">Mural Interativo</h1>
-    </header>
 
     <div className="mural">
       {postits.map((p) => (

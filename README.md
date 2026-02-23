@@ -65,3 +65,15 @@ npm start
 ### 02/19/2026
 
 * **Made edit possible**: Now you can edit your already published post-its
+
+### 02/21/2026
+
+* **Now you can move your post-its**: Post-its are now movable and you can design them how you want
+
+### 02/22/2026
+
+* **Removed forms**: Removed forms, taking a more clean approach of using a button to add a post-it
+
+### 02/23/2026
+
+* **Site Revamp and MVP completion**: All base functionalities are working, more updates will come with time 

@@ -43,7 +43,7 @@ const PostitCard = ({ postit, onDelete, onUpdate }) => {
       />
 
       <div className="color-picker">
-        {['yellow', 'red', 'lightblue', 'pink'].map((c) => (
+        {['#fff9aa', '#c1e7ff', '#ffcce5', '#d4f1be', '#ffd8b1', '#e7d1ff'].map((c) => (
           <div
             key={c}
             className={`color-dot ${postit.color === c ? 'active' : ''}`}
